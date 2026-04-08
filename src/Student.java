@@ -8,16 +8,19 @@ public class Student {
     // Constructor to init all attributes
     public Student(String studentId, String name, ArrayList <Double> grades)
     {
-
+        setStudentId(studentId);
+        setName(name);
+        setGrades(grades);
     }
-    // Constructor override excludes grade init
+    // Constructor overload, excludes grade init
     public Student(String studentId, String name)
     {
-
+        setStudentId(studentId);
+        setName(name);
     }
     // ------- Setters ---------
     public void setStudentId(String studentId) {
-        if (studentId != null && studentId.isBlank())
+        if (studentId != null && !studentId.isBlank())
         {
             this.studentId = studentId;
         }
@@ -64,13 +67,13 @@ public class Student {
     public double calculateAverage()
     {
         double sum = 0;
-        int count = 0;
+        double count = 0;
         for (double grade : this.grades)
         {
             sum += grade;
             count++;
         }
-        return sum / (double) count;
+        return sum / count;
     }
 
     // Returns Letter Grade if needed
@@ -82,7 +85,10 @@ public class Student {
     // toString override CAN INCLUDE GRADES LATER
     @Override
     public String toString() {
-        String s = String.format("Student ID: %s\nStudent Name: %s", this.studentId,this.name);
+        String s = String.format("Student ID: %s\n" +
+                                "Student Name: %s\n" +
+                                "Student Grade Average: %f",
+                this.studentId,this.name, this.calculateAverage());
         return s;
     }
 }
