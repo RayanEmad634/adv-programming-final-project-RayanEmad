@@ -5,29 +5,33 @@ package thread;
 //• Stores result in shared collection
 
 import exception.InvalidDataException;
-import model.GradePair;
 import model.Student;
 
 import java.util.ArrayList;
 
 public class GradeCalculatorTask implements Runnable{
     // Thread Attributes ONLY USED WHEN THREAD COMPLETES
-    private Student student;
+    private static ArrayList <Double> processedAverageGrades;
+    private static ArrayList <String> processedLetterGrades;
+    private ArrayList <Student> students;
     private Double averageGrade;
     private String averageGradeLetter;
-    public GradeCalculatorTask(Student student)
+    public GradeCalculatorTask(ArrayList <Student> students)
     {
-        if (student == null)
+        if (students == null || students.isEmpty())
         {
             throw new InvalidDataException("Empty/NULL Student Object Used in Thread Constructor");
         }
         else {
-            this.student = student;
+            this.students = students;
         }
     }
 
     @Override
     public void run() {
-
+        for (Student student : students) {
+            processedAverageGrades.add(student.calculateAverage());
+            processedLetterGrades.add(student.getLetterGrade());
+        }
     }
 }
