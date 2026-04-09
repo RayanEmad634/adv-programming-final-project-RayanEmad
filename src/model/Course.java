@@ -1,3 +1,5 @@
+package model;
+import exception.*;
 import java.util.ArrayList;
 
 public class Course {

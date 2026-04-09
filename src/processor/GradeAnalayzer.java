@@ -1,3 +1,5 @@
+package processor;
+
 import java.util.ArrayList;
 
 public class GradeAnalayzer extends GradeProcessor {
