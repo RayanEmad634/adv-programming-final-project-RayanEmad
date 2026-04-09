@@ -1,5 +1,7 @@
 package processor;
 
+import model.Student;
+
 import java.util.ArrayList;
 
 public class GradeAnalayzer extends GradeProcessor {

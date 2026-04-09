@@ -80,9 +80,24 @@ public class Student {
     }
 
     // Returns Letter Grade if needed
-    public String getLetterGrade()
-    {
-        return "A: 90+, B: 80-89, C: 70-79, D: 60-69, F: <60";
+    public String getLetterGrade() {
+        double averageGrade = this.calculateAverage();
+        if (averageGrade >= 90)
+        {
+            return "A";
+        } else if (averageGrade >= 80)
+        {
+            return "B";
+        } else if (averageGrade >= 70)
+        {
+            return "C";
+        } else if (averageGrade >= 60)
+        {
+            return "D";
+        } else
+        {
+            return "F";
+        }
     }
 
     // toString override CAN INCLUDE GRADES LATER
@@ -90,8 +105,9 @@ public class Student {
     public String toString() {
         String s = String.format("Student ID: %s\n" +
                                 "Student Name: %s\n" +
-                                "Student Grade Average: %f",
-                this.studentId,this.name, this.calculateAverage());
+                                "Student Grade Average: %f\n" +
+                                "Student Average Grade Letter: %s" ,
+                this.studentId,this.name, this.calculateAverage(), this.getLetterGrade());
         return s;
     }
 }
