@@ -40,11 +40,44 @@ public class FileInputService {
         {
             System.out.println(e.getMessage());
         }
-        return null;
+        return students;
     }
-    // USING THREADS
     public ArrayList<Student> readMultipleFiles(String[] filenames)
     {
-        return null;
+        ArrayList<Student> allStudents = new ArrayList<>();
+        ArrayList<Thread> threads = new ArrayList<>();
+
+        // Lock object for thread-safe access
+        Object lock = new Object();
+
+        for (String filename : filenames)
+        {
+            Thread t = new Thread(() -> {
+                ArrayList<Student> result = readStudentFile(filename);
+
+                if (result != null)
+                {
+                    synchronized (lock)
+                    {
+                        allStudents.addAll(result);
+                    }
+                }
+            });
+
+            threads.add(t);
+            t.start();
+        }
+
+        // Wait for all threads to finish
+        for (Thread t : threads)
+        {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return allStudents;
     }
 }
